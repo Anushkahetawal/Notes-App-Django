@@ -1,6 +1,6 @@
 @Library('Shared')_
 pipeline{
-    agent { label 'dev-server'}
+    agent { label 'vinod'}
     
     stages{
         stage("Code Clone"){
@@ -10,17 +10,17 @@ pipeline{
         }
         stage("Code Build"){
             steps{
-            dockerbuild("notes-app","latest")
+            docker_build("notes-app","latest")
             }
         }
         stage("Push Image to DockerHub"){
             steps{
-                dockerpush("dockerHubCreds","notes-app","latest")
+                docker_push("dockerHubCreds","notes-app","latest")
             }
         }
         stage("Deploy"){
             steps{
-                deploy()
+                docker_compose()
             }
         }
         
